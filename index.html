@@ -135,7 +135,7 @@
     		    var seconds = modulo % 60;
     		    //输出到页面
     		    document.getElementById(id).innerHTML = "<span class='time'>" +hours + "</span> 时 <span class='time'>" + minutes + "</span> 分 <span class='time'>" + seconds + "</span> 秒";
-    	        document.title = "下班倒计时";
+    	        document.title = str + "下班倒计时";
     		    //延迟一秒执行自己
     		    var timego = setTimeout(function () {
     		        TimeDown(id, endTime);
