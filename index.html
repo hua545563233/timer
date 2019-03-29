@@ -1,0 +1,157 @@
+
+
+<!DOCTYPE html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" href="https://animal.walnutui.com/favicon.ico" />
+    <title>friday</title>
+</head>
+
+<style>
+	*{
+		color: #333;
+		text-align: center;
+		background-color: #fff;
+	}
+	.time{
+		color: #ff3366;
+	}
+	.title{
+		color: #555;
+	}
+	img{
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1;
+		opacity: 0.5;
+	}
+	#view{
+		width: 90%;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		animation: ani 1s linear infinite;
+		background-color: rgba(0, 0, 0, 0);
+	}
+
+	@keyframes ani{
+		0%{
+			top: 50%;
+		}
+		80%{
+			top: 52%;
+		}
+		100%{
+			top: 50%;
+		}
+	}
+
+
+
+</style>
+<body id="html">
+	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544784161427&di=f46867d68ea11876a4c1a89d66cf1256&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161115%2F6163765431c44d538b37d6efb32ee885_th.jpg" alt="" id="gif">
+    <form id="form1" runat="server">
+        <div id="view">
+ 			<div class="title">Countdown to carnival</div>
+        	<div id="show"></div>
+        </div>
+    </form>
+
+    <script>
+    	window.onload=function(){
+    		var str,week = new Date().getDay();  
+    		switch (week) {  
+    		        case 0 :  
+    		            str = "周日";  
+    		            break;  
+    		        case 1 :  
+    		            str = "周一";  
+    		            break;   
+    		        case 2 :  
+    		            str = "周二";  
+    		            break;    
+    		        case 3 :  
+    		            str = "周三";  
+    		            break;    
+    		        case 4 :  
+    		            str = "周四";  
+    		            break;    
+    		        case 5 :  
+    		            str = "周五";  
+    		            break;    
+    		        case 6 :  
+    		            str = "周六";  
+    		            break;    
+    		}
+    	    window.onresize=function(){
+    	        infinite()
+    	    }
+    	    function infinite() {
+    	        var form1 = document.getElementById('form1');
+    	        var gif = document.getElementById('gif');
+    	        var htmlWidth = document.body.clientWidth;
+    	        if (htmlWidth >= 750) {
+    	        	form1.style.fontSize = "50px";
+    	            gif.style.width = "540px";
+    	            gif.style.height = "540px";
+    	        } else {
+    	        	form1.style.fontSize = "30px";
+    	            gif.style.width = "375px";
+    	            gif.style.height = "375px";
+    	        }
+    	    }infinite();
+
+    		function TimeDown(id, endTime) {
+
+    		if(week == 0 || week == 6){
+		    	document.getElementById(id).innerHTML = "啊，美好的周末~";
+	     		document.title = "啊，美好的周末~";
+	     		return false;
+    		}
+
+            var nowDate = new Date();
+            var endDate = new Date();
+
+            endDate.setHours(endTime)
+            endDate.setMinutes(0)
+            endDate.setSeconds(0)
+    		    //相差的总秒数
+    		    var totalSeconds = parseInt((endDate - nowDate) / 1000);
+    		    //天数
+    		    var days = Math.floor(totalSeconds / (60 * 60 * 24));
+    		    //取模（余数）
+    		    var modulo = totalSeconds % (60 * 60 * 24);
+    		    //小时数
+    		    var hours = Math.floor(modulo / (60 * 60));
+    		    modulo = modulo % (60 * 60);
+    		    //分钟
+    		    var minutes = Math.floor(modulo / 60);
+    		    //秒
+    		    var seconds = modulo % 60;
+    		    //输出到页面
+    		    document.getElementById(id).innerHTML = "<span class='time'>" +hours + "</span> 时 <span class='time'>" + minutes + "</span> 分 <span class='time'>" + seconds + "</span> 秒";
+    	        document.title = "下班倒计时";
+    		    //延迟一秒执行自己
+    		    var timego = setTimeout(function () {
+    		        TimeDown(id, endTime);
+    		    }, 1000)
+    		    if(totalSeconds<1){
+    		    	clearTimeout(timego);
+    		    	document.getElementById(id).innerHTML = "下班了，回家撸猫";
+    	     		document.title = "下班了，回家撸猫";
+    		    }
+    		}
+    		TimeDown("show", 18);
+    	}
+
+
+		
+
+    </script>
+</body>
+</html>
