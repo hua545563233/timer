@@ -57,13 +57,37 @@
 	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544784161427&di=f46867d68ea11876a4c1a89d66cf1256&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20161115%2F6163765431c44d538b37d6efb32ee885_th.jpg" alt="" id="gif">
     <form id="form1" runat="server">
         <div id="view">
- 			<div class="title">党哥返乡倒计时</div>
+ 			<div class="title">Countdown to carnival</div>
         	<div id="show"></div>
         </div>
     </form>
 
     <script>
     	window.onload=function(){
+    		var str,week = new Date().getDay();  
+    		switch (week) {  
+    		        case 0 :  
+    		            str = "周日";  
+    		            break;  
+    		        case 1 :  
+    		            str = "周一";  
+    		            break;   
+    		        case 2 :  
+    		            str = "周二";  
+    		            break;    
+    		        case 3 :  
+    		            str = "周三";  
+    		            break;    
+    		        case 4 :  
+    		            str = "周四";  
+    		            break;    
+    		        case 5 :  
+    		            str = "周五";  
+    		            break;    
+    		        case 6 :  
+    		            str = "周六";  
+    		            break;    
+    		}
     	    window.onresize=function(){
     	        infinite()
     	    }
@@ -80,15 +104,22 @@
     	            gif.style.width = "375px";
     	            gif.style.height = "375px";
     	        }
-					}
-					infinite();
+    	    }infinite();
 
     		function TimeDown(id, endTime) {
 
+    		if(week == 0 || week == 6){
+		    	document.getElementById(id).innerHTML = "啊，美好的周末~";
+	     		document.title = "啊，美好的周末~";
+	     		return false;
+    		}
 
             var nowDate = new Date();
-            var endDate = new Date(endTime);
+            var endDate = new Date();
 
+            endDate.setHours(endTime)
+            endDate.setMinutes(0)
+            endDate.setSeconds(0)
     		    //相差的总秒数
     		    var totalSeconds = parseInt((endDate - nowDate) / 1000);
     		    //天数
@@ -103,19 +134,19 @@
     		    //秒
     		    var seconds = modulo % 60;
     		    //输出到页面
-    		    document.getElementById(id).innerHTML = "<span class='time'>" +days + "</span>天 <span class='time'>" +hours + "</span> 时 <span class='time'>" + minutes + "</span> 分 <span class='time'>" + seconds + "</span> 秒";
-    	        document.title = "党哥返乡倒计时";
+    		    document.getElementById(id).innerHTML = "<span class='time'>" +hours + "</span> 时 <span class='time'>" + minutes + "</span> 分 <span class='time'>" + seconds + "</span> 秒";
+    	        document.title = str + "下班倒计时";
     		    //延迟一秒执行自己
     		    var timego = setTimeout(function () {
     		        TimeDown(id, endTime);
     		    }, 1000)
     		    if(totalSeconds<1){
     		    	clearTimeout(timego);
-    		    	document.getElementById(id).innerHTML = "党哥回家咯！";
-    	     		document.title = "党哥回家咯！";
+    		    	document.getElementById(id).innerHTML = "下班了，回家撸猫";
+    	     		document.title = "下班了，回家撸猫";
     		    }
     		}
-    		TimeDown("show", '2020/1/22');
+    		TimeDown("show", 18);
     	}
 
 
